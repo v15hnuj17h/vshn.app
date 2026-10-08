@@ -730,38 +730,23 @@ tbody tr.selected {
         min-height: 100vh;
         min-height: 100dvh;
 
-        /* One column */
         grid-template-columns: 1fr;
-
-        /* 2 and 3 keep equal, DEFINITE height. "1fr 1fr" left box2/box3's
-           height indefinite (fr tracks need the grid container itself to
-           have a definite height, and .container only has min-height), so
-           the chart canvas's height:100% couldn't resolve against anything
-           real. It then fell back to sizing itself from its own drawing
-           buffer, which the JS grows on every resize — an unbounded
-           feedback loop. Explicit vh tracks (as desktop already uses for
-           box2) keep every height in the chain definite. */
         grid-template-rows: 45vh 45vh auto;
     }
 
-    /* 2 comes first */
     .box2 {
         grid-column: 1;
         grid-row: 1;
     }
 
-    /* 3 comes second */
     .box3 {
         grid-column: 1;
         grid-row: 2;
     }
 
-    /* 1 moves to the bottom */
     .box1 {
         grid-column: 1;
         grid-row: 3;
-
-        /* Don't stretch across the two desktop rows */
         min-height: 500px;
     }
 

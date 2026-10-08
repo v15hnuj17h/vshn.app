@@ -1,158 +1,146 @@
 <!DOCTYPE html>
-<!-- <html lang="en"> -->
-  <!-- <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vshn.app</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>vshn.app</title>
+  <meta name="description" content="vshn.app — a free, in-browser CSV savings and spending analyzer. No signup, no server, your data never leaves your device." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="canonical" href="https://vshn-app.vishnujitha2007.workers.dev/" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-  </head> -->
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vshn.app</title>
-    <meta name="description" content="vshn.app — a free, in-browser CSV savings and spending analyzer. No signup, no server, your data never leaves your device." />
-    <meta name="theme-color" content="#0a0a0a" />
-    <meta name="color-scheme" content="dark" />
-    <link rel="canonical" href="https://vshn-app.vishnujitha2007.workers.dev/" />
- 
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
- 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://vshn-app.vishnujitha2007.workers.dev/" />
-    <meta property="og:title" content="vshn.app" />
-    <meta property="og:description" content="Free, in-browser CSV savings and spending analyzer. No signup, no server, your data never leaves your device." />
-    <meta property="og:image" content="https://vshn-app.vishnujitha2007.workers.dev/og-image.png" />
- 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="vshn.app" />
-    <meta name="twitter:description" content="Free, in-browser CSV savings and spending analyzer. No signup, no server, your data never leaves your device." />
-    <meta name="twitter:image" content="https://vshn-app.vishnujitha2007.workers.dev/og-image.png" />
- 
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vshn-app.vishnujitha2007.workers.dev/" />
+  <meta property="og:title" content="vshn.app" />
+  <meta property="og:description" content="Free, in-browser CSV savings and spending analyzer. No signup, no server, your data never leaves your device." />
+  <meta property="og:image" content="https://vshn-app.vishnujitha2007.workers.dev/og-image.png" />
 
-  <body>
-    <main class="container">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="vshn.app" />
+  <meta name="twitter:description" content="Free, in-browser CSV savings and spending analyzer. No signup, no server, your data never leaves your device." />
+  <meta name="twitter:image" content="https://vshn-app.vishnujitha2007.workers.dev/og-image.png" />
 
-      <div class="box1">
-        <div class="box1a">
-          <button class="box1a1" id="open-csv" type="button">Open CSV</button>
-          <button class="box1a2" id="edit-csv" type="button" disabled>Edit CSV</button>
-          <button class="box1a3" id="export-csv" type="button" disabled>Export CSV</button>
-          <input id="csv-file" type="file" accept=".csv,text/csv" hidden />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="container">
+
+    <div class="box1">
+      <div class="box1a">
+        <button class="box1a1" id="open-csv" type="button">Open CSV</button>
+        <button class="box1a2" id="edit-csv" type="button" disabled>Edit CSV</button>
+        <button class="box1a3" id="export-csv" type="button" disabled>Export CSV</button>
+        <input id="csv-file" type="file" accept=".csv,text/csv" hidden />
+      </div>
+      <div class="box1b" id="table-panel">
+        <div class="table-toolbar editing-only">
+          <button id="add-row" type="button" disabled>Add Row</button>
+          <button id="delete-row" type="button" disabled>Delete Row</button>
+          <button id="error-count" type="button" aria-label="Jump to first error">Errors: 0</button>
         </div>
-        <div class="box1b" id="table-panel">
-          <div class="table-toolbar editing-only">
-            <button id="add-row" type="button" disabled>Add Row</button>
-            <button id="delete-row" type="button" disabled>Delete Row</button>
-            <button id="error-count" type="button" aria-label="Jump to first error">Errors: 0</button>
-          </div>
-          <p class="table-status" id="table-status" role="status"></p>
-          <datalist id="category-options"></datalist>
-          <div class="table-wrap">
-            <table id="csv-table"></table>
-          </div>
+        <p class="table-status" id="table-status" role="status"></p>
+        <datalist id="category-options"></datalist>
+        <div class="table-wrap">
+          <table id="csv-table"></table>
         </div>
       </div>
-
-      <div class="box2">
-        <div class="box2a">
-          <strong class="chart-title">vshn.app</strong>
-          <button class="help-button" id="open-help" type="button" aria-label="How to use vshn.app" aria-controls="help-modal">?</button>
-          <span class="chart-readout" id="chart-readout">Timeline analyzer</span>
-        </div>
-        <div class="box2b">
-          <div class="box2b2" id="chart-area">
-            <canvas id="savings-chart" role="img" aria-label="Savings rate chart"></canvas>
-            <p class="chart-empty" id="chart-empty">Open a CSV to see analytics</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="box3">
-        <div class="panel-heading">
-          <span class="eyebrow">Analyzer</span>
-          <h1>Control panel</h1>
-        </div>
-        <div class="control-grid">
-          <label>Value to plot
-            <select id="metric-select">
-              <option value="debit">Debit</option>
-              <option value="credit">Credit</option>
-              <option value="savings">Saving amount</option>
-              <option value="rate" selected>Saving rate</option>
-            </select>
-          </label>
-          <label>Category
-            <select id="category-select"><option value="">All categories</option></select>
-          </label>
-          <label>Method
-            <select id="method-select"><option value="">All methods</option></select>
-          </label>
-          <label>Value mode
-            <select id="value-mode-select">
-              <option value="linear">Daywise value</option>
-              <option value="cumulative" selected>Cumulative value</option>
-            </select>
-          </label>
-        </div>
-        <div class="interval-control" id="interval-control" role="radiogroup" aria-label="Timeline scale">
-          <button type="button" role="radio" data-interval="1D" aria-checked="true">Day</button>
-          <button type="button" role="radio" data-interval="1W" aria-checked="false">Week</button>
-          <button type="button" role="radio" data-interval="1M" aria-checked="false">Month</button>
-          <button type="button" role="radio" data-interval="1Y" aria-checked="false">Year</button>
-        </div>
-        <div class="stat-grid">
-          <article class="stat-card"><span>Total saving</span><strong id="stat-savings">—</strong></article>
-          <article class="stat-card"><span>Total credit</span><strong id="stat-credit">—</strong></article>
-          <article class="stat-card"><span>Total debit</span><strong id="stat-debit">—</strong></article>
-          <article class="stat-card"><span>Point value</span><strong id="stat-rate">—</strong></article>
-        </div>
-        <p class="stats-caption" id="stats-caption">—</p>
-        <p class="analytics-note" id="analytics-note"></p>
-      </div>
-
-    </main>
-
-    <div class="modal-overlay" id="help-modal" hidden>
-      <section class="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
-        <div class="help-modal-header">
-          <h2 id="help-title">How to use vshn.app</h2>
-          <button class="modal-close" id="close-help" type="button" aria-label="Close help">&times;</button>
-        </div>
-        <div class="help-sections">
-          <section>
-            <h3>Loading data</h3>
-            <p><strong>Open CSV</strong> expects headers Date, Description, Category, Amount, Type, Method. Use yyyy-mm-dd dates, Debit or Credit types, and UPI, Cash, or Card methods.</p>
-          </section>
-          <section>
-            <h3>Editing</h3>
-            <p><strong>Edit CSV</strong> unlocks the table. Click a row, use Add Row or Delete Row, then Save Edits. Invalid cells turn red; click Errors: N to jump to the first one.</p>
-          </section>
-          <section>
-            <h3>Exporting</h3>
-            <p><strong>Export CSV</strong> downloads the table once all errors are fixed.</p>
-          </section>
-          <section>
-            <h3>Reading the chart</h3>
-            <p>Choose Debit, Credit, Saving amount, or Saving rate. Filter by Category or Method, switch Daywise or Cumulative, and choose Day, Week, Month, or Year. Drag to pan, hover a bar for its exact value, and double-click to reset zoom.</p>
-          </section>
-          <section>
-            <h3>Stat cards</h3>
-            <p>Total saving, credit, and debit follow the current filter. Point value shows the hovered or latest point.</p>
-          </section>
-        </div>
-      </section>
     </div>
 
-    <script src="script.js"></script>
-  </body>
+    <div class="box2">
+      <div class="box2a">
+        <strong class="chart-title">vshn.app</strong>
+        <button class="help-button" id="open-help" type="button" aria-label="How to use vshn.app" aria-controls="help-modal">?</button>
+        <span class="chart-readout" id="chart-readout">Timeline analyzer</span>
+      </div>
+      <div class="box2b">
+        <div class="box2b2" id="chart-area">
+          <canvas id="savings-chart" role="img" aria-label="Savings rate chart"></canvas>
+          <p class="chart-empty" id="chart-empty">Open a CSV to see analytics</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box3">
+      <div class="panel-heading">
+        <span class="eyebrow">Analyzer</span>
+        <h1>Control panel</h1>
+      </div>
+      <div class="control-grid">
+        <label>Value to plot
+          <select id="metric-select">
+            <option value="debit">Debit</option>
+            <option value="credit">Credit</option>
+            <option value="savings">Saving amount</option>
+            <option value="rate" selected>Saving rate</option>
+          </select>
+        </label>
+        <label>Category
+          <select id="category-select"><option value="">All categories</option></select>
+        </label>
+        <label>Method
+          <select id="method-select"><option value="">All methods</option></select>
+        </label>
+        <label>Value mode
+          <select id="value-mode-select">
+            <option value="linear">Daywise value</option>
+            <option value="cumulative" selected>Cumulative value</option>
+          </select>
+        </label>
+      </div>
+      <div class="interval-control" id="interval-control" role="radiogroup" aria-label="Timeline scale">
+        <button type="button" role="radio" data-interval="1D" aria-checked="true">Day</button>
+        <button type="button" role="radio" data-interval="1W" aria-checked="false">Week</button>
+        <button type="button" role="radio" data-interval="1M" aria-checked="false">Month</button>
+        <button type="button" role="radio" data-interval="1Y" aria-checked="false">Year</button>
+      </div>
+      <div class="stat-grid">
+        <article class="stat-card"><span>Total saving</span><strong id="stat-savings">—</strong></article>
+        <article class="stat-card"><span>Total credit</span><strong id="stat-credit">—</strong></article>
+        <article class="stat-card"><span>Total debit</span><strong id="stat-debit">—</strong></article>
+        <article class="stat-card"><span>Point value</span><strong id="stat-rate">—</strong></article>
+      </div>
+      <p class="stats-caption" id="stats-caption">—</p>
+      <p class="analytics-note" id="analytics-note"></p>
+    </div>
+
+  </main>
+
+  <div class="modal-overlay" id="help-modal" hidden>
+    <section class="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <div class="help-modal-header">
+        <h2 id="help-title">How to use vshn.app</h2>
+        <button class="modal-close" id="close-help" type="button" aria-label="Close help">&times;</button>
+      </div>
+      <div class="help-sections">
+        <section>
+          <h3>Loading data</h3>
+          <p><strong>Open CSV</strong> expects headers Date, Description, Category, Amount, Type, Method. Use yyyy-mm-dd dates, Debit or Credit types, and UPI, Cash, or Card methods.</p>
+        </section>
+        <section>
+          <h3>Editing</h3>
+          <p><strong>Edit CSV</strong> unlocks the table. Click a row, use Add Row or Delete Row, then Save Edits. Invalid cells turn red; click Errors: N to jump to the first one.</p>
+        </section>
+        <section>
+          <h3>Exporting</h3>
+          <p><strong>Export CSV</strong> downloads the table once all errors are fixed.</p>
+        </section>
+        <section>
+          <h3>Reading the chart</h3>
+          <p>Choose Debit, Credit, Saving amount, or Saving rate. Filter by Category or Method, switch Daywise or Cumulative, and choose Day, Week, Month, or Year. Drag to pan, hover a bar for its exact value, and double-click to reset zoom.</p>
+        </section>
+        <section>
+          <h3>Stat cards</h3>
+          <p>Total saving, credit, and debit follow the current filter. Point value shows the hovered or latest point.</p>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
