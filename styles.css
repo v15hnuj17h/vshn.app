@@ -358,14 +358,129 @@ tbody tr.selected {
     white-space: nowrap;
 }
 
+.help-button,
+.modal-close {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    flex: none;
+    border: 1px solid var(--chip-border);
+    border-radius: 50%;
+    background: var(--chip-bg);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.help-button {
+    margin-left: 8px;
+    font-size: 0.82rem;
+}
+
+.help-button:hover,
+.help-button:focus-visible,
+.modal-close:hover,
+.modal-close:focus-visible {
+    background: var(--chip-hover-bg);
+    border-color: var(--chip-hover-border);
+    transform: translateY(-2px);
+    box-shadow: var(--hover-glow);
+}
+
+.help-button:focus-visible,
+.modal-close:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
+
 .chart-readout {
+    flex: 1 1 auto;
     min-width: 0;
+    margin-left: 10px;
     overflow: hidden;
     color: var(--muted);
     font-size: 0.78rem;
     font-weight: 500;
+    text-align: right;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.modal-overlay {
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.72);
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+.help-modal {
+    width: min(560px, 100%);
+    max-height: min(700px, 90vh);
+    overflow: auto;
+    padding: 20px;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+    scrollbar-width: none;
+}
+
+.help-modal::-webkit-scrollbar {
+    display: none;
+}
+
+.help-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+.help-modal h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.help-sections {
+    display: grid;
+    gap: 14px;
+    padding-top: 16px;
+}
+
+.help-sections section {
+    display: grid;
+    gap: 4px;
+}
+
+.help-sections h3 {
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.help-sections p {
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.help-sections strong {
+    color: var(--text);
+    font-weight: 600;
 }
 
 .box2b2 {
@@ -664,6 +779,12 @@ tbody tr.selected {
     .table-toolbar button,
     .interval-control button,
     .stat-card {
+        transition: none;
+        transform: none;
+    }
+
+    .help-button,
+    .modal-close {
         transition: none;
         transform: none;
     }

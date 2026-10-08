@@ -40,6 +40,7 @@
       <div class="box2">
         <div class="box2a">
           <strong class="chart-title">vshn.app</strong>
+          <button class="help-button" id="open-help" type="button" aria-label="How to use vshn.app" aria-controls="help-modal">?</button>
           <span class="chart-readout" id="chart-readout">Timeline analyzer</span>
         </div>
         <div class="box2b">
@@ -94,6 +95,37 @@
       </div>
 
     </main>
+
+    <div class="modal-overlay" id="help-modal" hidden>
+      <section class="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <div class="help-modal-header">
+          <h2 id="help-title">How to use vshn.app</h2>
+          <button class="modal-close" id="close-help" type="button" aria-label="Close help">&times;</button>
+        </div>
+        <div class="help-sections">
+          <section>
+            <h3>Loading data</h3>
+            <p><strong>Open CSV</strong> expects headers Date, Description, Category, Amount, Type, Method. Use yyyy-mm-dd dates, Debit or Credit types, and UPI, Cash, or Card methods.</p>
+          </section>
+          <section>
+            <h3>Editing</h3>
+            <p><strong>Edit CSV</strong> unlocks the table. Click a row, use Add Row or Delete Row, then Save Edits. Invalid cells turn red; click Errors: N to jump to the first one.</p>
+          </section>
+          <section>
+            <h3>Exporting</h3>
+            <p><strong>Export CSV</strong> downloads the table once all errors are fixed.</p>
+          </section>
+          <section>
+            <h3>Reading the chart</h3>
+            <p>Choose Debit, Credit, Saving amount, or Saving rate. Filter by Category or Method, switch Daywise or Cumulative, and choose Day, Week, Month, or Year. Drag to pan, hover a bar for its exact value, and double-click to reset zoom.</p>
+          </section>
+          <section>
+            <h3>Stat cards</h3>
+            <p>Total saving, credit, and debit follow the current filter. Point value shows the hovered or latest point.</p>
+          </section>
+        </div>
+      </section>
+    </div>
 
     <script src="script.js"></script>
   </body>

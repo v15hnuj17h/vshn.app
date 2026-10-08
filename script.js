@@ -19,6 +19,9 @@ const chartArea = document.querySelector('#chart-area');
 const chartCanvas = document.querySelector('#savings-chart');
 const chartEmpty = document.querySelector('#chart-empty');
 const chartReadout = document.querySelector('#chart-readout');
+const openHelpButton = document.querySelector('#open-help');
+const helpModal = document.querySelector('#help-modal');
+const closeHelpButton = document.querySelector('#close-help');
 const statsCaption = document.querySelector('#stats-caption');
 const analyticsNote = document.querySelector('#analytics-note');
 const metricSelect = document.querySelector('#metric-select');
@@ -43,6 +46,29 @@ let chartHoverIndex = null;
 let chartPointer = null;
 let chartDrag = null;
 let chartFrame = null;
+let helpReturnFocus = null;
+
+function closeHelpModal() {
+  helpModal.hidden = true;
+  (helpReturnFocus || openHelpButton).focus();
+  helpReturnFocus = null;
+}
+
+openHelpButton.addEventListener('click', () => {
+  helpReturnFocus = document.activeElement;
+  helpModal.hidden = false;
+  closeHelpButton.focus();
+});
+
+closeHelpButton.addEventListener('click', closeHelpModal);
+
+helpModal.addEventListener('click', (event) => {
+  if (event.target === helpModal) closeHelpModal();
+});
+
+helpModal.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeHelpModal();
+});
 
 function parseCsv(csvText) {
   const rows = [];
