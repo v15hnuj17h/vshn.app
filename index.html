@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vshn.app</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+    <main class="container">
+
+      <div class="box1">
+        <div class="box1a">
+          <button class="box1a1" id="open-csv" type="button">Open CSV</button>
+          <button class="box1a2" id="edit-csv" type="button" disabled>Edit CSV</button>
+          <button class="box1a3" id="export-csv" type="button" disabled>Export CSV</button>
+          <input id="csv-file" type="file" accept=".csv,text/csv" hidden />
+        </div>
+        <div class="box1b" id="table-panel">
+          <div class="table-toolbar editing-only">
+            <button id="add-row" type="button" disabled>Add Row</button>
+            <button id="delete-row" type="button" disabled>Delete Row</button>
+            <button id="error-count" type="button" aria-label="Jump to first error">Errors: 0</button>
+          </div>
+          <p class="table-status" id="table-status" role="status"></p>
+          <datalist id="category-options"></datalist>
+          <div class="table-wrap">
+            <table id="csv-table"></table>
+          </div>
+        </div>
+      </div>
+
+      <div class="box2">
+        <div class="box2a">
+          <strong class="chart-title">vshn.app</strong>
+          <span class="chart-readout" id="chart-readout">Timeline analyzer</span>
+        </div>
+        <div class="box2b">
+          <div class="box2b2" id="chart-area">
+            <canvas id="savings-chart" role="img" aria-label="Savings rate chart"></canvas>
+            <p class="chart-empty" id="chart-empty">Open a CSV to see analytics</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="box3">
+        <div class="panel-heading">
+          <span class="eyebrow">Analyzer</span>
+          <h1>Control panel</h1>
+        </div>
+        <div class="control-grid">
+          <label>Value to plot
+            <select id="metric-select">
+              <option value="debit">Debit</option>
+              <option value="credit">Credit</option>
+              <option value="savings">Saving amount</option>
+              <option value="rate" selected>Saving rate</option>
+            </select>
+          </label>
+          <label>Category
+            <select id="category-select"><option value="">All categories</option></select>
+          </label>
+          <label>Method
+            <select id="method-select"><option value="">All methods</option></select>
+          </label>
+          <label>Value mode
+            <select id="value-mode-select">
+              <option value="linear">Daywise value</option>
+              <option value="cumulative" selected>Cumulative value</option>
+            </select>
+          </label>
+        </div>
+        <div class="interval-control" id="interval-control" role="radiogroup" aria-label="Timeline scale">
+          <button type="button" role="radio" data-interval="1D" aria-checked="true">Day</button>
+          <button type="button" role="radio" data-interval="1W" aria-checked="false">Week</button>
+          <button type="button" role="radio" data-interval="1M" aria-checked="false">Month</button>
+          <button type="button" role="radio" data-interval="1Y" aria-checked="false">Year</button>
+        </div>
+        <div class="stat-grid">
+          <article class="stat-card"><span>Total saving</span><strong id="stat-savings">—</strong></article>
+          <article class="stat-card"><span>Total credit</span><strong id="stat-credit">—</strong></article>
+          <article class="stat-card"><span>Total debit</span><strong id="stat-debit">—</strong></article>
+          <article class="stat-card"><span>Point value</span><strong id="stat-rate">—</strong></article>
+        </div>
+        <p class="stats-caption" id="stats-caption">—</p>
+        <p class="analytics-note" id="analytics-note"></p>
+      </div>
+
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

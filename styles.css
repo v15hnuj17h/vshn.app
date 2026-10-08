@@ -1,0 +1,587 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: 'Inter', sans-serif;
+    background: #202020;
+}
+
+/* The page itself scrolls on mobile (the stacked table/chart/stats panels
+   don't fit one screen); hide that scrollbar the same way .table-wrap
+   already hides its own, so scrolling still works but stays invisible. */
+html,
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 58vh 1fr;
+
+    gap: 5px;
+    padding: 5px;
+
+    color: #a8a8a8;
+    background: #202020;
+}
+
+.box1 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+
+    border-radius: 8px;
+
+    display: grid;
+    grid-template-rows: max(5vh, 44px) 93vh;
+    gap: 5px;
+}
+
+.box1a {
+    grid-template-columns: repeat(3, 1fr);
+
+    display: grid;
+    gap: 5px;
+    
+    border-radius: 8px;
+    
+    height: max(5vh, 44px);
+    
+}
+
+.box1a > button {
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    
+    background: #313131;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    border-radius: 8px;
+    border: 1px solid #4d4c4c;
+}
+
+.box1a > button:hover:not(:disabled),
+.box1a > button:focus-visible {
+    background: #454545;
+    outline: 2px solid #facc15;
+    outline-offset: -2px;
+}
+
+.box1a > button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.box1b {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #313131;
+    
+    border-radius: 10px;
+    border: 1px solid #4d4c4c;
+}
+
+.box1b.has-errors {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
+}
+
+.table-toolbar button {
+    padding: 6px 12px;
+    border: 1px solid #4d4c4c;
+    background: #313131;
+    color: #e5e5e5;
+    cursor: pointer;
+    font: inherit;
+    border-radius: 8px;
+}
+
+.table-toolbar button:hover:not(:disabled),
+.table-toolbar button:focus-visible {
+    background: #454545;
+    color: #facc15;
+}
+
+.table-toolbar button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.table-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 46px;
+    flex: none;
+    padding: 0 8px;
+    border-bottom: 1px solid #4d4c4c;
+}
+
+.editing-only {
+    display: none;
+}
+
+.box1b.is-editing .editing-only {
+    display: flex;
+}
+
+#error-count {
+    margin-left: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #a8a8a8;
+    font-size: 0.8rem;
+}
+
+#error-count.has-errors {
+    color: #fca5a5;
+}
+
+#error-count:hover,
+#error-count:focus-visible {
+    color: #facc15;
+}
+
+.table-status {
+    min-height: 24px;
+    flex: none;
+    padding: 6px 10px;
+    color: #a8a8a8;
+    font-size: 0.8rem;
+}
+
+.table-status.error {
+    color: #fca5a5;
+}
+
+.table-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.table-wrap::-webkit-scrollbar {
+    display: none;
+}
+
+table {
+    width: 100%;
+    min-width: 760px;
+    font-size: 0.82rem;
+    border-collapse: collapse;
+    background: #202020;
+    color: #e5e5e5;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 6px 8px;
+    border: 1px solid #4d4c4c;
+    white-space: nowrap;
+}
+
+td input,
+td select {
+    width: 100%;
+    min-width: 88px;
+    padding: 4px 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+}
+
+td input:disabled,
+td select:disabled {
+    opacity: 1;
+}
+
+td input:not(:disabled),
+td select:not(:disabled) {
+    border-color: #4d4c4c;
+    background: #292929;
+}
+
+td input:focus,
+td select:focus {
+    outline: 2px solid #facc15;
+    outline-offset: -2px;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background: #313131;
+    color: #facc15;
+}
+
+tr:nth-child(even) {
+    background: #292929;
+}
+
+.invalid {
+    background: #7f1d1d !important;
+    color: #fecaca;
+}
+
+tbody tr.selected {
+    outline: 2px solid #facc15;
+    outline-offset: -2px;
+}
+
+.box2 {
+    grid-column: 2;
+    grid-row: 1;
+
+    border-radius: 8px;
+
+    display: grid;
+    grid-template-rows: max(5vh, 44px) 1fr;
+
+    gap: 5px;
+}
+
+.box2a{
+    position: relative;
+    overflow: hidden;
+    background: #313131;
+    color: #e5e5e5;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    
+    border-radius: 8px;
+    border: 1px solid #4d4c4c;
+}
+
+.box2a::after {
+    position: absolute;
+    right: 14px;
+    bottom: 0;
+    left: 14px;
+    height: 2px;
+    background: #facc15;
+    content: '';
+    opacity: 0.8;
+}
+
+.box2b{
+    min-height: 0;
+    display: flex;
+    overflow: hidden;
+    background: #313131;
+    
+    border-radius: 8px;
+    border: 1px solid #4d4c4c;
+}
+
+.chart-title {
+    color: #facc15;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+}
+
+.chart-readout {
+    min-width: 0;
+    overflow: hidden;
+    color: #a8a8a8;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.box2b2 {
+    position: relative;
+    min-height: 0;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+}
+
+#savings-chart {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+}
+
+#savings-chart:active {
+    cursor: grabbing;
+}
+
+.chart-empty {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    color: #a8a8a8;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.chart-empty[hidden] {
+    display: none;
+}
+
+.box3 {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    background: #313131;
+
+    border-radius: 8px;
+    border: 1px solid #4d4c4c;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.box3::-webkit-scrollbar {
+    display: none;
+}
+
+@media (min-width: 719px) {
+    .box3 {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .panel-heading {
+        padding-bottom: 8px;
+    }
+
+    .control-grid select {
+        min-height: 36px;
+    }
+
+    .stat-card {
+        min-height: 54px;
+        padding: 7px 8px;
+    }
+
+    .interval-control button {
+        min-height: 38px;
+    }
+}
+
+.panel-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid #4d4c4c;
+    padding-bottom: 10px;
+}
+
+.panel-heading h1 {
+    color: #e5e5e5;
+    font-size: 1rem;
+}
+
+.eyebrow {
+    color: #facc15;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.control-grid label {
+    display: grid;
+    gap: 5px;
+    color: #a8a8a8;
+    font-size: 0.7rem;
+}
+
+.control-grid select {
+    width: 100%;
+    min-height: 40px;
+    padding: 0 8px;
+    border: 1px solid #4d4c4c;
+    border-radius: 6px;
+    background: #292929;
+    color: #e5e5e5;
+    font: inherit;
+}
+
+.control-grid select:focus-visible {
+    outline: 2px solid #facc15;
+    outline-offset: -2px;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.stat-card {
+    display: flex;
+    min-width: 0;
+    min-height: 62px;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 9px 10px;
+    border: 1px solid #4d4c4c;
+    border-radius: 8px;
+    background: #292929;
+}
+
+.stat-card span {
+    color: #a8a8a8;
+    font-size: 0.72rem;
+}
+
+.stat-card strong {
+    overflow: hidden;
+    color: #e5e5e5;
+    font-size: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stat-card strong.positive {
+    color: #facc15;
+}
+
+.stat-card strong.negative {
+    color: #fca5a5;
+}
+
+.stats-caption {
+    min-height: 16px;
+    color: #a8a8a8;
+    font-size: 0.72rem;
+}
+
+.analytics-note {
+    min-height: 15px;
+    color: #a8a8a8;
+    font-size: 0.72rem;
+}
+
+.interval-control {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.interval-control button {
+    min-height: 44px;
+    border: 1px solid #4d4c4c;
+    border-radius: 8px;
+    background: #313131;
+    color: #a8a8a8;
+    cursor: pointer;
+    font: inherit;
+}
+
+.interval-control button:hover,
+.interval-control button:focus-visible {
+    background: #454545;
+    color: #e5e5e5;
+    outline: 2px solid #facc15;
+    outline-offset: -2px;
+}
+
+.interval-control button[aria-checked="true"] {
+    border-color: #facc15;
+    color: #facc15;
+}
+
+.interval-control button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+
+
+@media (max-width: 718px) {
+
+    .container {
+        min-height: 100vh;
+        min-height: 100dvh;
+
+        /* One column */
+        grid-template-columns: 1fr;
+
+        /* 2 and 3 keep equal, DEFINITE height. "1fr 1fr" left box2/box3's
+           height indefinite (fr tracks need the grid container itself to
+           have a definite height, and .container only has min-height), so
+           the chart canvas's height:100% couldn't resolve against anything
+           real. It then fell back to sizing itself from its own drawing
+           buffer, which the JS grows on every resize — an unbounded
+           feedback loop. Explicit vh tracks (as desktop already uses for
+           box2) keep every height in the chain definite. */
+        grid-template-rows: 45vh 45vh auto;
+    }
+
+    /* 2 comes first */
+    .box2 {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    /* 3 comes second */
+    .box3 {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    /* 1 moves to the bottom */
+    .box1 {
+        grid-column: 1;
+        grid-row: 3;
+
+        /* Don't stretch across the two desktop rows */
+        min-height: 500px;
+    }
+
+    .stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .control-grid {
+        grid-template-columns: 1fr;
+    }
+}
